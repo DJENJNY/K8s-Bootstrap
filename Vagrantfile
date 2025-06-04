@@ -18,11 +18,18 @@ Vagrant.configure("2") do |config|
     server.vm.network "private_network", ip: "192.168.56.10"
   end
 
-  config.vm.define "client" do |client|
-    client.vm.box = "hashicorp-education/ubuntu-24-04"
-    client.vm.provision "shell", path: "server.sh"
-    client.vm.hostname = "client"
-    client.vm.network "private_network", ip: "192.168.56.33"
+  config.vm.define "node1" do |node1|
+    node1.vm.box = "hashicorp-education/ubuntu-24-04"
+    node1.vm.provision "shell", path: "client.sh"
+    node1.vm.hostname = "node-1"
+    node1.vm.network "private_network", ip: "192.168.56.33"
+  end
+
+  config.vm.define "node2" do |node2|
+    node2.vm.box = "hashicorp-education/ubuntu-24-04"
+    node2.vm.provision "shell", path: "client.sh"
+    node2.vm.hostname = "node-2"
+    node2.vm.network "private_network", ip: "192.168.56.34"
   end
 
 end
