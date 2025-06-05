@@ -2,3 +2,5 @@
 *.key
 *.csr
 downloads/
+encryption-config.yaml
+*.kubeconfig
