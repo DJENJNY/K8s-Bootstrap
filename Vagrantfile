@@ -8,7 +8,7 @@
 Vagrant.configure("2") do |config|
   config.vm.define "server" do |server|
     server.vm.box = "hashicorp-education/ubuntu-24-04"
-    # server.vm.provision "shell", path: "server.sh"
+    server.vm.provision "shell", path: "server.sh"
     # server.vm.network "forwarded_port", guest: 8080, host: 8080
     # server.vm.network "forwarded_port", guest: 3100, host: 3100
     # server.vm.network "forwarded_port", guest: 12345, host: 12345

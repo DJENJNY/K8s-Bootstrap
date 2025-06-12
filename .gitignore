@@ -4,3 +4,5 @@
 downloads/
 encryption-config.yaml
 *.kubeconfig
+*.gz
+*.tgz
