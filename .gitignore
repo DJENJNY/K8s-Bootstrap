@@ -6,3 +6,5 @@ encryption-config.yaml
 *.kubeconfig
 *.gz
 *.tgz
+downloads-amd64.txt
+runc.amd64
