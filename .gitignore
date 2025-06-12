@@ -3,8 +3,10 @@
 *.csr
 downloads/
 encryption-config.yaml
+ca.conf
 *.kubeconfig
 *.gz
 *.tgz
 downloads-amd64.txt
 runc.amd64
+.vagrant/
