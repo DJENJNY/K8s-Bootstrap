@@ -88,6 +88,13 @@ systemctl enable kube-apiserver \
 systemctl start kube-apiserver \
     kube-controller-manager kube-scheduler
 
+NODE_2_IP=$(grep node-2 /vagrant/machines.txt | cut -d " " -f 1)
+NODE_2_SUBNET=$(grep node-2 /vagrant/machines.txt | cut -d " " -f 4)
+NODE_1_IP=$(grep node-1 /vagrant/machines.txt | cut -d " " -f 1)
+NODE_1_SUBNET=$(grep node-1 /vagrant/machines.txt | cut -d " " -f 4)
+
+ip route add ${NODE_2_SUBNET} via ${NODE_2_IP} dev enp0s3 onlink
+ip route add ${NODE_1_SUBNET} via ${NODE_1_IP} dev enp0s3 onlink
 
 
 

@@ -9,27 +9,23 @@ Vagrant.configure("2") do |config|
   config.vm.define "server" do |server|
     server.vm.box = "hashicorp-education/ubuntu-24-04"
     server.vm.provision "shell", path: "server.sh"
-    # server.vm.network "forwarded_port", guest: 8080, host: 8080
-    # server.vm.network "forwarded_port", guest: 3100, host: 3100
-    # server.vm.network "forwarded_port", guest: 12345, host: 12345
-    # server.vm.network "forwarded_port", guest: 9090, host: 9090
-    # server.vm.network "forwarded_port", guest: 9100, host: 9100
+    server.vm.network "forwarded_port", guest: 6443, host: 6443
     server.vm.hostname = "server"
     server.vm.network "private_network", ip: "192.168.56.10"
   end
 
   config.vm.define "node1" do |node1|
     node1.vm.box = "hashicorp-education/ubuntu-24-04"
-    node1.vm.provision "shell", path: "client.sh"
+    node1.vm.provision "shell", path: "worker.sh"
     node1.vm.hostname = "node-1"
-    node1.vm.network "private_network", ip: "192.168.56.33"
+    node1.vm.network "private_network", ip: "10.200.0.12"
   end
 
   config.vm.define "node2" do |node2|
     node2.vm.box = "hashicorp-education/ubuntu-24-04"
-    node2.vm.provision "shell", path: "client.sh"
+    node2.vm.provision "shell", path: "worker.sh"
     node2.vm.hostname = "node-2"
-    node2.vm.network "private_network", ip: "192.168.56.34"
+    node2.vm.network "private_network", ip: "10.200.1.14"
   end
 
 end
