@@ -8,10 +8,12 @@
 Vagrant.configure("2") do |config|
   config.vm.define "server" do |server|
     server.vm.box = "hashicorp-education/ubuntu-24-04"
+    server.vm.box_version = "0.1.0"
     server.vm.provision "shell", path: "server.sh"
     server.vm.network "forwarded_port", guest: 6443, host: 6443
     server.vm.hostname = "server"
     server.vm.network "private_network", ip: "192.168.56.10"
+    server.vm.synced_folder ".", "/vagrant", disabled: false
   end
 
   config.vm.define "node1" do |node1|
@@ -19,6 +21,7 @@ Vagrant.configure("2") do |config|
     node1.vm.provision "shell", path: "worker.sh"
     node1.vm.hostname = "node-1"
     node1.vm.network "private_network", ip: "192.168.56.11"
+    node1.vm.synced_folder ".", "/vagrant", disabled: false
   end
 
   config.vm.define "node2" do |node2|

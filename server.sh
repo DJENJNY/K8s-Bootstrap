@@ -48,8 +48,10 @@ systemctl start etcd
 mkdir -p /etc/kubernetes/config
 
 # Install the Kubernetes binaries
-cp /vagrant/downloads/controller/{kube-apiserver,kube-controller-manager,kube-scheduler} /usr/local/bin/
-cp /vagrant/downloads/client/kubectl /usr/local/bin/
+cp /vagrant/{kube-apiserver,kube-controller-manager,kube-scheduler,kubectl} /usr/local/bin/
+
+# Make the K8s binaries executable
+chmod +x /usr/local/bin/{kube-apiserver,kube-controller-manager,kube-scheduler,kubectl}
 
 # Create the Kubernetes configuration directory
 mkdir -p /var/lib/kubernetes/
@@ -63,7 +65,7 @@ cp /vagrant/ca.crt /vagrant/ca.key \
 
 #Created Kube-Apiserver system
 cp /vagrant/units/kube-apiserver.service \
-  /etc/systemd/system/kube-apiserver.service
+  /etc/systemd/system/kube-apiserver.service  
 
 #Config Kube Controller Manager
 cp /vagrant/kube-controller-manager.kubeconfig /var/lib/kubernetes/

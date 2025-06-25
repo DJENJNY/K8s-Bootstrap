@@ -4,6 +4,12 @@ echo "Worker Node Setup"
 
 cat /vagrant/hosts >> /etc/hosts
 
+wget -q --show-progress \
+  --https-only \
+  --timestamping \
+  -P /vagrant \
+  -i /vagrant/downloads-$(dpkg --print-architecture).txt
+
 {
   apt-get update
   apt-get -y install socat conntrack ipset kmod
@@ -20,13 +26,24 @@ mkdir -p /opt/cni/bin
 
 mkdir -p /var/run/kubernetes
 
+ARCH=$(dpkg --print-architecture)
+tar -xvf /vagrant/crictl-v1.32.0-linux-${ARCH}.tar.gz -C /usr/local/bin/
+tar -xvf /vagrant/containerd-2.1.0-beta.0-linux-${ARCH}.tar.gz --strip-components 1 -C /bin/
+tar -xvf /vagrant/cni-plugins-linux-${ARCH}-v1.6.2.tgz -C /opt/cni/bin/
+
+cp /vagrant/{kubelet,kube-proxy} /usr/local/bin/
+cp /vagrant/runc.${ARCH} /usr/local/bin/
+
+chmod +x /usr/local/bin/{runc.arm64,crictl,kube-proxy,kubectl}
+
+
 # Copy the binaries to the appropriate directory
-{
-  cp /vagrant/downloads/worker/crictl /vagrant/downloads/worker/kube-proxy /vagrant/downloads/worker/kubelet /vagrant/downloads/worker/runc \
-    /usr/local/bin/
-  cp /vagrant/downloads/worker/containerd /vagrant/downloads/worker/containerd-shim-runc-v2 /vagrant/downloads/worker/containerd-stress /bin/
-  cp /vagrant/downloads/cni-plugins/* /opt/cni/bin/
-}
+# {
+#   # cp /vagrant/downloads/worker/kube-proxy /vagrant/downloads/worker/kubelet /vagrant/downloads/worker/runc \
+#   #   /usr/local/bin/
+#   # cp /vagrant/downloads/worker/containerd /vagrant/downloads/worker/containerd-shim-runc-v2 /vagrant/downloads/worker/containerd-stress /bin/
+#   # cp /vagrant/downloads/cni-plugins/* /opt/cni/bin/
+# }
 
 # Copy the CNI configuration files to the appropriate directory
 cp /vagrant/workers/$(hostname)/10-bridge.conf /vagrant/configs/99-loopback.conf /etc/cni/net.d/
