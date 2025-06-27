@@ -32,9 +32,9 @@ tar -xvf /vagrant/containerd-2.1.0-beta.0-linux-${ARCH}.tar.gz --strip-component
 tar -xvf /vagrant/cni-plugins-linux-${ARCH}-v1.6.2.tgz -C /opt/cni/bin/
 
 cp /vagrant/{kubelet,kube-proxy} /usr/local/bin/
-cp /vagrant/runc.${ARCH} /usr/local/bin/
+cp /vagrant/runc.${ARCH} /usr/local/bin/runc
 
-chmod +x /usr/local/bin/{runc.arm64,crictl,kube-proxy,kubectl}
+chmod +x /usr/local/bin/{runc,crictl,kube-proxy,kubelet}
 
 
 # Copy the binaries to the appropriate directory

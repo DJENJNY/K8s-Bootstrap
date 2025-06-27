@@ -29,6 +29,7 @@ Vagrant.configure("2") do |config|
     node2.vm.provision "shell", path: "worker.sh"
     node2.vm.hostname = "node-2"
     node2.vm.network "private_network", ip: "192.168.56.12"
+    node2.vm.synced_folder ".", "/vagrant", disabled: false
   end
 
 end

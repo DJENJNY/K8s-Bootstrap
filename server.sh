@@ -52,6 +52,7 @@ cp /vagrant/{kube-apiserver,kube-controller-manager,kube-scheduler,kubectl} /usr
 
 # Make the K8s binaries executable
 chmod +x /usr/local/bin/{kube-apiserver,kube-controller-manager,kube-scheduler,kubectl}
+chmod +x /vagrant/runc.arm64
 
 # Create the Kubernetes configuration directory
 mkdir -p /var/lib/kubernetes/
