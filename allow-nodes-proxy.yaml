@@ -6,4 +6,3 @@ rules:
 - apiGroups: [""]
   resources: ["nodes/proxy"]
   verbs: ["get", "list", "watch", "create"]
-k
